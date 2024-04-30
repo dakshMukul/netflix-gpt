@@ -4,22 +4,31 @@ import { checkValidteData } from "../utils/Validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
-  // const name = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const name = useRef();
   const email = useRef();
   const password = useRef();
 
+  // console.log(name);
+
   const handleButtonClick = () => {
     const errorMessage = checkValidteData(
-      // name.current.value,
       email.current.value,
       password.current.value
     );
+
     setErrorMsg(errorMessage);
     if (errorMessage !== null) return;
 
@@ -32,6 +41,19 @@ const Login = () => {
         .then((userCredentail) => {
           //sign up
           const user = userCredentail.user;
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMsg(error.message);
+            });
           console.log(user);
         })
         .catch((error) => {
@@ -50,6 +72,8 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
+          navigate("/browse");
+          console.log("navgation executed");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -66,7 +90,7 @@ const Login = () => {
 
   return (
     <div className="relative">
-      <Header />
+      <Header isSignInForm={isSignInForm} />
       <div className="absolute ">
         <img
           className=""
@@ -85,7 +109,7 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
-            // ref={name}
+            ref={name}
             className="bg-gray-700 p-3 rounded-md text-white mb-5 border border-white"
             type="text"
             placeholder="Full Name"
