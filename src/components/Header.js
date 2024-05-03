@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import UserLogo from "../img/netflix-logo.png";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser } from "../utils/userSlice";
+import { addUser, removeUser } from "../utils/userSlice";
+import { logo } from "../utils/constants";
 
 const Header = ({ isSignInForm }) => {
-  const [logout, setLogout] = useState();
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,24 +16,32 @@ const Header = ({ isSignInForm }) => {
     signOut(auth)
       .then(() => {
         dispatch(removeUser());
-        setLogout(true);
-        navigate("/");
       })
       .catch((error) => {
         navigate("/ErrorPage");
       });
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+  }, []);
+
   return (
     <div className="absolute flex justify-between px-8 w-full py-3 bg-gradient-to-b from-black z-10">
-      <img
-        className="w-48"
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="logo"
-      />
+      <img className="w-40" src={logo} alt="logo" />
       {user && (
         <div className="flex items-center gap-2">
           <h1>welcome {user.displayName}</h1>
-          <img className="h-12" src={UserLogo} />
+          <img className="h-10" src={UserLogo} />
           <button className="text-white font-bold" onClick={handleLogout}>
             Log out
           </button>

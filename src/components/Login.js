@@ -21,8 +21,6 @@ const Login = () => {
   const email = useRef();
   const password = useRef();
 
-  // console.log(name);
-
   const handleButtonClick = () => {
     const errorMessage = checkValidteData(
       email.current.value,
@@ -49,18 +47,15 @@ const Login = () => {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMsg(error.message);
             });
-          console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorMessage);
-          console.log(errorMessage);
         });
     } else {
       signInWithEmailAndPassword(
