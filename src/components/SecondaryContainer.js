@@ -4,25 +4,17 @@ import { useSelector } from "react-redux";
 
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
-  console.log(movies);
+  // console.log("movies state: ", movies);
+  const { nowPlayingMovies = [], TopRatedMovies = [] } = movies;
 
-  if (!movies.nowPlayingMovies) {
-    console.error(`movies is not defined`);
+  if (!nowPlayingMovies || !TopRatedMovies) {
+    console.error(`One or more movie categories are not defined`);
     return <div>Loading movies...</div>;
-
-    const { nowPlayingMovies, popularMovies } = movies;
-
-    if (!nowPlayingMovies || !popularMovies) {
-      console.error(`One or more movie categories are not defined`);
-      return <div>Loading movies...</div>;
-    }
   }
   return (
     <div className="bg-black">
       <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-      <MovieList title={"Pupular"} movies={movies.popular} />
-      {/* <MovieList title={"Popular"} movies={movies} /> */}
-      {/* <MovieList title={"Horror"} movies={movies} /> */}
+      <MovieList title={"Top Rated"} movies={movies.TopRatedMovies} />
     </div>
   );
 };
