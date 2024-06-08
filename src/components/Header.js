@@ -6,11 +6,14 @@ import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { logo } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { Supported_languages } from "../utils/languageConstants";
 
 const Header = ({ isSignInForm }) => {
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
 
   const handleLogout = () => {
     signOut(auth)
@@ -20,6 +23,10 @@ const Header = ({ isSignInForm }) => {
       .catch((error) => {
         navigate("/ErrorPage");
       });
+  };
+
+  const handleGptSearchClick = () => {
+    dispatch(toggleGptSearchView());
   };
 
   useEffect(() => {
@@ -36,11 +43,24 @@ const Header = ({ isSignInForm }) => {
   }, []);
 
   return (
-    <div className="absolute flex justify-between px-8 w-full py-3 bg-gradient-to-b from-black z-10">
+    <div className="fixed top-0 z-50 flex justify-between px-8 w-full py-3 bg-gradient-to-b from-black">
       <img className="w-40" src={logo} alt="logo" />
       {user && (
         <div className="flex items-center gap-2">
-          <h1>welcome {user.displayName}</h1>
+          <select>
+            {Supported_languages.map((lang) => (
+              <option key={lang.identifier} value={lang.identifier}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
+          <button
+            className="text-white bg-purple-800 rounded-lg p-2 m-2"
+            onClick={handleGptSearchClick}
+          >
+            GPT Search: {showGptSearch ? "on" : "off"}
+          </button>
+          <h1 className="text-white">welcome {user.displayName}</h1>
           <img className="h-10" src={UserLogo} />
           <button className="text-white font-bold" onClick={handleLogout}>
             Log out
