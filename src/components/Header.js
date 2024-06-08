@@ -5,6 +5,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { changeLanguage } from "../utils/configSlice";
 import { logo } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { Supported_languages } from "../utils/languageConstants";
@@ -28,6 +29,10 @@ const Header = ({ isSignInForm }) => {
   const handleGptSearchClick = () => {
     dispatch(toggleGptSearchView());
   };
+  const handleLanguageChange = (e) => {
+    const selectedaLanguage = e.target.value;
+    dispatch(changeLanguage(selectedaLanguage));
+  };
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -47,13 +52,16 @@ const Header = ({ isSignInForm }) => {
       <img className="w-40" src={logo} alt="logo" />
       {user && (
         <div className="flex items-center gap-2">
-          <select>
-            {Supported_languages.map((lang) => (
-              <option key={lang.identifier} value={lang.identifier}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
+          {showGptSearch && (
+            <select onClick={handleLanguageChange}>
+              {Supported_languages.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+
           <button
             className="text-white bg-purple-800 rounded-lg p-2 m-2"
             onClick={handleGptSearchClick}
