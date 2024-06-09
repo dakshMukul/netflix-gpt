@@ -10,8 +10,8 @@ function MainContainer() {
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div className="">
-      <VideoTtile title={original_title} overview={overview} />
+    <div className="w-[100%]">
+      <VideoTtile className="" title={original_title} overview={overview} />
       <VideoBackground movieId={id} />
     </div>
   );

@@ -5,12 +5,16 @@ import SecondaryContainer from "./SecondaryContainer";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import GptSearch from "./GptSearch";
 import { useSelector } from "react-redux";
+import usePopularMovies from "../hooks/usePopularMovies";
+import useUpcomingMovies from "../hooks/useUpcomingMovies";
 
 const Browse = () => {
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
 
   useNowPlayingMovies();
   useTopRatedMovies();
+  usePopularMovies();
+  useUpcomingMovies();
 
   return (
     <div className="relative">

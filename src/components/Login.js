@@ -87,56 +87,59 @@ const Login = () => {
   return (
     <div className="relative">
       <Header isSignInForm={isSignInForm} />
-      <div className="absolute ">
-        <img className="" src={bg_img} alt="background" />
-      </div>
+      <img
+        className="w-full h-screen object-cover"
+        src={bg_img}
+        alt="background"
+      />
 
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className="absolute flex flex-col text-white bg-black opacity-85 w-4/12 my-36 right-0 left-0 m-auto 
-      p-12 rounded-lg"
-      >
-        <h1 className="text-3xl mb-6 font-bold">
-          {isSignInForm ? "Sign In" : "Sign Up "}
-        </h1>
-        {!isSignInForm && (
+      <div className="absolute flex justify-center w-full items-center top-[20%]">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="flex flex-col p-4 text-white bg-black opacity-85 rounded-lg w-10/12 md:w-4/12"
+        >
+          <h1 className="text-3xl mb-6 font-bold">
+            {isSignInForm ? "Sign In" : "Sign Up "}
+          </h1>
+          {!isSignInForm && (
+            <input
+              ref={name}
+              className="bg-gray-700 p-3 rounded-md text-white mb-5 border border-white"
+              type="text"
+              placeholder="Full Name"
+            />
+          )}
+
           <input
-            ref={name}
+            ref={email}
             className="bg-gray-700 p-3 rounded-md text-white mb-5 border border-white"
             type="text"
-            placeholder="Full Name"
+            placeholder="Email"
           />
-        )}
-
-        <input
-          ref={email}
-          className="bg-gray-700 p-3 rounded-md text-white mb-5 border border-white"
-          type="text"
-          placeholder="Email"
-        />
-        <input
-          ref={password}
-          className="bg-gray-700 p-3 rounded-md text-white mb-5 border border-white"
-          type="password"
-          placeholder="Password"
-        />
-        <div>
-          {errorMsg && (
-            <p className="text-red-500 font-bold text-lg">{errorMsg}</p>
-          )}
-        </div>
-        <button
-          className="bg-red-700 p-3 rounded-md mt-3 "
-          onClick={handleButtonClick}
-        >
-          {isSignInForm ? "Sign In" : "Sign UP"}
-        </button>
-        <p className="py-3 mt-3 cursor-pointer" onClick={toggleSignInForm}>
-          {isSignInForm
-            ? "New to Netflix? Sign up now."
-            : "Already a user? Sign In now."}
-        </p>
-      </form>
+          <input
+            ref={password}
+            className="bg-gray-700 p-3 rounded-md text-white mb-5 border border-white"
+            type="password"
+            placeholder="Password"
+          />
+          <div>
+            {errorMsg && (
+              <p className="text-red-500 font-bold text-lg">{errorMsg}</p>
+            )}
+          </div>
+          <button
+            className="bg-red-900 p-3 rounded-md mt-3 "
+            onClick={handleButtonClick}
+          >
+            {isSignInForm ? "Sign In" : "Sign UP"}
+          </button>
+          <p className="py-3 mt-3 cursor-pointer" onClick={toggleSignInForm}>
+            {isSignInForm
+              ? "New to Netflix? Sign up now."
+              : "Already a user? Sign In now."}
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
