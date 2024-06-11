@@ -51,16 +51,25 @@ const Header = ({ isSignInForm }) => {
         navigate("/");
       }
     });
+
+    document.addEventListener("mousedown", toggleMenu);
   }, []);
 
   return (
-    <header className="fixed top-0 z-50 flex justify-between px-3 md:px-8 w-full h-16 md:h-20 py-1 bg-black md:bg-transparent md:py-3 md:bg-gradient-to-b md:from-black">
+    <header className="fixed w-full top-0 z-50 flex justify-between  md:px-8 h-16 md:h-20 py-1 bg-black md:bg-transparent md:bg-gradient-to-b md:from-black">
       <div className="flex justify-between items-center">
-        <img className="w-32 md:w-40" src={logo} alt="logo" />
+        <img
+          className="w-32 md:w-40 cursor-pointer"
+          src={logo}
+          alt="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
       </div>
 
       {user && (
-        <nav className="flex items-center gap-2 md:gap-6">
+        <nav className="flex items-center  p-4 gap-2">
           <button
             className="text-white bg-purple-800  p-2 m-2 none hover:scale-95"
             onClick={handleGptSearchClick}

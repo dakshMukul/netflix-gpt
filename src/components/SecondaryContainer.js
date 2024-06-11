@@ -22,7 +22,7 @@ const SecondaryContainer = () => {
     return <div>Loading movies...</div>;
   }
   return (
-    <div className="bg-black">
+    <div className="">
       <MovieList title={"Now Playing"} movies={nowPlayingMovies} />
       <MovieList title={"Top Rated"} movies={TopRatedMovies} />
       <MovieList title={"Upcoming"} movies={upComingMovies} />
