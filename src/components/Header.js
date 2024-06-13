@@ -21,6 +21,16 @@ const Header = ({ isSignInForm }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleClickOutside = (e) => {
+    if (
+      isMenuOpen &&
+      !e.target.closest(".sideBar") &&
+      !e.target.closest(".hamburger")
+    ) {
+      setIsMenuOpen(false);
+    }
+  };
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -45,25 +55,24 @@ const Header = ({ isSignInForm }) => {
       if (user) {
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-        navigate("/browse");
+        // navigate("/browse");
       } else {
         dispatch(removeUser());
         navigate("/");
       }
     });
-
-    document.addEventListener("mousedown", toggleMenu);
+    document.addEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <header className="fixed w-full top-0 z-50 flex justify-between  md:px-8 h-16 md:h-20 py-1 bg-black md:bg-transparent md:bg-gradient-to-b md:from-black">
-      <div className="flex justify-between items-center">
+    <header className="fixed w-full top-0 z-50 flex justify-between md:px-8 h-16 md:h-20 py-1 bg-gray-900 md:bg-transparent md:bg-gradient-to-b md:from-black">
+      <div className="hamburger flex justify-between items-center">
         <img
           className="w-32 md:w-40 cursor-pointer"
           src={logo}
           alt="logo"
           onClick={() => {
-            navigate("/");
+            navigate("/browse");
           }}
         />
       </div>
@@ -87,7 +96,7 @@ const Header = ({ isSignInForm }) => {
       )}
 
       {isMenuOpen && (
-        <div className="sideBar absolute right-3 md:right-8 top-20 text-white bg-gray-800 rounded-md p-4">
+        <div className="sideBar absolute right-3 md:right-8 top-20 text-white bg-gray-900 rounded-md p-4">
           <h1>Welcome {user?.displayName}</h1>
           <nav className="list-none flex flex-col gap-2 mt-2">
             <li>Watchlist</li>
