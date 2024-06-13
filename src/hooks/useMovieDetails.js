@@ -8,7 +8,7 @@ const useMovieDetails = (movieId) => {
       API_OPTIONS
     );
     const json = await data.json();
-    return json.results;
+    return json;
   };
 
   useEffect(() => {
