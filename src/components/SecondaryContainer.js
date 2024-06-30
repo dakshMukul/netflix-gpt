@@ -1,6 +1,7 @@
 import React from "react";
 import MovieList from "./MovieList";
 import { useSelector } from "react-redux";
+import MovieListShimmer from "./MovieListShimmer";
 
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
@@ -19,10 +20,18 @@ const SecondaryContainer = () => {
     !upComingMovies
   ) {
     console.error(`One or more movie categories are not defined`);
-    return <div>Loading movies...</div>;
+    return (
+      <>
+        <MovieListShimmer />
+        <MovieListShimmer />
+        <MovieListShimmer />
+        <MovieListShimmer />
+      </>
+    );
   }
   return (
     <div className="">
+      <MovieListShimmer />
       <MovieList title={"Now Playing"} movies={nowPlayingMovies} />
       <MovieList title={"Top Rated"} movies={TopRatedMovies} />
       <MovieList title={"Upcoming"} movies={upComingMovies} />

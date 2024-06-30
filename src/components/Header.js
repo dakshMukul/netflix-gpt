@@ -65,7 +65,7 @@ const Header = ({ isSignInForm }) => {
   }, []);
 
   return (
-    <header className="fixed w-full top-0 z-50 flex justify-between md:px-8 h-16 md:h-20 py-1 bg-gray-900 md:bg-transparent md:bg-gradient-to-b md:from-black">
+    <header className="fixed w-full top-0 z-50 flex justify-between md:px-8 h-16 md:h-20 py-1 md:bg-transparent md:bg-gradient-to-b md:from-black">
       <div className="hamburger flex justify-between items-center">
         <img
           className="w-32 md:w-40 cursor-pointer"
