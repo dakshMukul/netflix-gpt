@@ -1,5 +1,6 @@
 // Shimmer.js
 import React from "react";
+import MovieListShimmer from "./MovieListShimmer";
 
 const MovieDetailsShimmer = () => {
   return (
@@ -25,12 +26,7 @@ const MovieDetailsShimmer = () => {
             <div className="mt-4 h-16 bg-gray-700"></div>
           </div>
         </div>
-        <div className="grid grid-flow-col gap-4 p-4 overflow-x-scroll scrollbar-hide snap-x bg-gray-800">
-          <div className="w-36 h-52 bg-gray-700 rounded-md"></div>
-          <div className="w-36 h-52 bg-gray-700 rounded-md"></div>
-          <div className="w-36 h-52 bg-gray-700 rounded-md"></div>
-          <div className="w-36 h-52 bg-gray-700 rounded-md"></div>
-        </div>
+        <MovieListShimmer />
       </div>
     </div>
   );

@@ -45,14 +45,14 @@ const MovieDetails = () => {
   return (
     <div className="relative text-white">
       <Header />
-      <div className="h-screen">
+      <div className="h-screen ">
         <img
           src={img_CDN_URL + backdrop_path}
           alt="Movie Poster"
           className="w-full h-screen object-cover mt-16 md:mt-0"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div>
-        s
+        {/* <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div> */}
+
         <div className="absolute top-[5%] sm:top-[15%] md:top-[20%] flex flex-wrap justify-center items-center gap-5">
           <img
             src={img_CDN_URL + poster_path}
@@ -82,10 +82,12 @@ const MovieDetails = () => {
             <p className="mt-4 text-sm md:text-base">{overview}</p>
           </div>
         </div>
-        <div className="grid grid-flow-col gap-4 p-4 overflow-x-scroll scrollbar-hide snap-x bg-gray-800">
-          {similarMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+        <div className="p-2 mt-3 overflow-x-scroll scrollbar-hide snap-x bg-gray-800">
+          <div className="grid grid-flow-col gap-4">
+            {similarMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

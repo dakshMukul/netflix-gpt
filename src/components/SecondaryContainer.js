@@ -6,12 +6,8 @@ import MovieListShimmer from "./MovieListShimmer";
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
   // console.log("movies state: ", movies);
-  const {
-    nowPlayingMovies = [],
-    TopRatedMovies = [],
-    popularMovies = [],
-    upComingMovies = [],
-  } = movies;
+  const { nowPlayingMovies, TopRatedMovies, popularMovies, upComingMovies } =
+    movies;
 
   if (
     !nowPlayingMovies ||
@@ -31,7 +27,6 @@ const SecondaryContainer = () => {
   }
   return (
     <div className="">
-      <MovieListShimmer />
       <MovieList title={"Now Playing"} movies={nowPlayingMovies} />
       <MovieList title={"Top Rated"} movies={TopRatedMovies} />
       <MovieList title={"Upcoming"} movies={upComingMovies} />
