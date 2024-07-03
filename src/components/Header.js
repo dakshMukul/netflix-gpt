@@ -21,16 +21,6 @@ const Header = ({ isSignInForm }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleClickOutside = (e) => {
-    if (
-      isMenuOpen &&
-      !e.target.closest(".sideBar") &&
-      !e.target.closest(".hamburger")
-    ) {
-      setIsMenuOpen(false);
-    }
-  };
-
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -51,18 +41,33 @@ const Header = ({ isSignInForm }) => {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName } = user;
-        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        dispatch(addUser({ uid, email, displayName }));
         navigate("/browse");
       } else {
         dispatch(removeUser());
         navigate("/");
       }
     });
+    const handleClickOutside = (e) => {
+      if (
+        isMenuOpen &&
+        !e.target.closest(".sideBar") &&
+        !e.target.closest(".hamburger")
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-  }, []);
+
+    return () => {
+      unsubscribe();
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dispatch, isMenuOpen, navigate]);
 
   return (
     <header className="fixed w-full top-0 z-50 flex justify-between md:px-8 h-16 md:h-20 py-1 md:bg-transparent md:bg-gradient-to-b md:from-black">
@@ -90,6 +95,7 @@ const Header = ({ isSignInForm }) => {
             <img
               className="h-10 cursor-pointer hover:scale-95"
               src={UserLogo}
+              alt="menu icon"
             />
           </div>
         </nav>
