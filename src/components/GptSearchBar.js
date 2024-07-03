@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import lang from "../utils/languageConstants";
 import { useSelector } from "react-redux";
-import { openAiKey } from "../utils/constants";
+// import { openAiKey } from "../utils/constants";
 // import openAi from "../utils/openAi";
 
 const GptSearchBar = () => {
