@@ -39,7 +39,7 @@ const Login = () => {
       )
         .then((userCredentail) => {
           //sign up
-          const user = userCredentail.user;
+          // const user = userCredentail.user;
           updateProfile(auth.currentUser, {
             displayName: name.current.value,
           })
@@ -54,7 +54,7 @@ const Login = () => {
             });
         })
         .catch((error) => {
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorMessage);
         });
@@ -66,7 +66,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
+          // const user = userCredential.user;
           navigate("/browse");
           console.log("navgation executed");
         })

@@ -67,7 +67,7 @@ const Header = ({ isSignInForm }) => {
       unsubscribe();
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dispatch, isMenuOpen, navigate]);
+  }, []);
 
   return (
     <header className="fixed w-full top-0 z-50 flex justify-between md:px-8 h-16 md:h-20 py-1 md:bg-transparent md:bg-gradient-to-b md:from-black">
