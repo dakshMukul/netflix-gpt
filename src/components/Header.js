@@ -83,9 +83,22 @@ const Header = ({ isSignInForm }) => {
       </div>
 
       {user && (
-        <nav className="flex items-center  p-4 gap-2">
+        <nav className="flex items-center  p-4 gap-8">
+          {/* <div className="search-bar  border-b-2 border-red-600">
+            <form className="flex">
+              <input
+                type="text"
+                placeholder="Search movies..."
+                value={"searchQuery"}
+                className="px-2 py-0 bg-transparent  text-white"
+              />
+              <button type="submit" className=" px-4 py-2 rounded-r-md">
+                <i className="fas fa-search text-white"></i>
+              </button>
+            </form>
+          </div> */}
           <button
-            className="text-white bg-purple-800  p-2 m-2 none hover:scale-95"
+            className="text-white bg-purple-800  rounded-sm p-2 m-2 none hover:scale-95"
             onClick={handleGptSearchClick}
           >
             {showGptSearch ? "Home" : "GPT Search"}

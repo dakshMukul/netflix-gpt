@@ -30,13 +30,7 @@ const MovieDetails = () => {
   if (!movieDetail) {
     return <MovieDetailsShimmer />;
   }
-  const genreColors = [
-    "bg-red-500",
-    "bg-green-500",
-    "bg-blue-500",
-    "bg-yellow-500",
-    "bg-purple-500",
-  ];
+
   const {
     poster_path,
     original_title,
@@ -49,22 +43,23 @@ const MovieDetails = () => {
   } = movieDetail;
 
   return (
-    <div className="bg-gray-900 text-white w-full flex flex-col">
+    <div className="relative text-white">
       <Header />
-      <div className="mt-24  relative flex flex-col gap-5 items-center">
-        <div className="movie_detail w-[90%] flex flex-wrap justify-center items-center gap-5 ">
+      <div className="relative">
+        {/* <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div> */}
+
+        <div className="movie_detail absolute ml-auto mr-auto w-[70%] top-[5%] sm:top-[15%] md:top-[20%]  flex flex-wrap justify-center items-center gap-5">
           {/* <img
             src={img_CDN_URL + backdrop_path}
             alt="Movie Poster"
             className="backgrund_image w-full h-screen object-cover mt-16 md:mt-0"
           /> */}
-          <div className="absolute"></div>
           <img
             src={img_CDN_URL + poster_path}
             alt="poster path"
             className="Movie_poster w-36 md:w-52 border-4 border-white rounded-md"
           />
-          <div className="p-4 bg-black bg-opacity-60 h-full rounded-lg w-[90%] md:w-[70%]">
+          <div className="p-4 bg-black bg-opacity-60 rounded-lg w-[90%] md:w-[70%]">
             <h1 className="text-2xl md:text-4xl font-bold">{original_title}</h1>
             <div className="mt-2 flex flex-wrap items-center space-x-2 text-sm md:text-base">
               <span>{release_date}</span>
@@ -78,31 +73,22 @@ const MovieDetails = () => {
             <div className="mt-2 flex flex-wrap items-center space-x-2 text-sm md:text-base">
               <span className="font-bold">Genres:</span>
               {genres.map((item, index) => (
-                <span
-                  key={index}
-                  className={`px-1 rounded ${
-                    genreColors[index % genreColors.length]
-                  }`}
-                >
+                <span key={index}>
                   {item.name}
-                  {index < genres.length - 1 ? "" : ""}
+                  {index < genres.length - 1 ? "," : ""}
                 </span>
               ))}
             </div>
             <p className="mt-4 text-sm md:text-base">{overview}</p>
           </div>
         </div>
-
-        <div className="w-full mt-5">
-          <h1 className="text-2xl pl-5 font-semibold">Similar Movies</h1>
-          <div className="similarMovie w-full p-4 overflow-x-auto scroll-smooth scrollbar-hide">
-            <div className="grid grid-flow-col gap-4 ">
-              {similarMovies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
-            </div>
+        {/* <div className="similarMovie absolute w-full p-4 bg-gray-900 bg-opacity-70 overflow-x-scroll scrollbar-hide snap-x">
+          <div className="grid grid-flow-col gap-4">
+            {similarMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

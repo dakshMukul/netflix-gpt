@@ -73,7 +73,10 @@ const Login = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMsg(errorCode + "-" + errorMessage);
+          setErrorMsg(
+            "Email or Password is not correct",
+            errorCode + "-" + errorMessage
+          );
           console.log(errorCode + "-" + errorMessage);
         });
     }
